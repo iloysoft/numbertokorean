@@ -55,7 +55,6 @@ func parseUint64(n uint64) []string {
 	s := strconv.FormatUint(n, 10)
 
 	prevPos := len(s)
-	curUnit := 0
 	for i := prevPos - 4; ; i = i - 4 {
 		if i < 0 {
 			i = 0
@@ -63,7 +62,6 @@ func parseUint64(n uint64) []string {
 
 		word := strings.TrimLeft(s[i:prevPos], "0")
 		ret = append(ret, word)
-		curUnit += 1
 
 		if i == 0 {
 			break
