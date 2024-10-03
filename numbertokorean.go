@@ -14,7 +14,7 @@ var (
 	unitsBig        = []string{"", "만", "억", "조", "경"} // in reverse order
 	unitsSmall      = []string{"천", "백", "십"}
 	numbersImplicit = []string{"", "", "이", "삼", "사", "오", "육", "칠", "팔", "구"}
-	numbersExplicit = []string{"", "일", "이", "삼", "사", "오", "육", "칠", "팔", "구", "십"}
+	numbersExplicit = []string{"", "일", "이", "삼", "사", "오", "육", "칠", "팔", "구"}
 )
 
 const (
