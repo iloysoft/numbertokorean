@@ -110,7 +110,7 @@ func splitNumberByDigits(s string) [4]byte {
 	}
 }
 
-func readNumberInKorean(s string, isSecondPart bool) *strings.Builder {
+func readNumberInKorean(s string, isSecondPart bool, isMonetary bool) *strings.Builder {
 	nums := splitNumberByDigits(s)
 
 	var sb strings.Builder
@@ -119,25 +119,33 @@ func readNumberInKorean(s string, isSecondPart bool) *strings.Builder {
 
 	for i := 0; i < 3; i++ {
 		if nums[i] > 0 {
-			sb.WriteString(numbersFor012[nums[i]])
+			if isMonetary {
+				sb.WriteString(numbersFor3[nums[i]])
+			} else {
+				sb.WriteString(numbersFor012[nums[i]])
+			}
 			sb.WriteString(unitsSmall[i])
 		}
 	}
 
 	if nums[3] > 0 {
-		if isSecondPart && nums[0] == 0 && nums[1] == 0 && nums[2] == 0 {
-			// NOTE
-			// special case....
-			sb.WriteString(numbersFor012[nums[3]])
-		} else {
+		if isMonetary {
 			sb.WriteString(numbersFor3[nums[3]])
+		} else {
+			if isSecondPart && nums[0] == 0 && nums[1] == 0 && nums[2] == 0 {
+				// NOTE
+				// special case....
+				sb.WriteString(numbersFor012[nums[3]])
+			} else {
+				sb.WriteString(numbersFor3[nums[3]])
+			}
 		}
 	}
 
 	return &sb
 }
 
-func Int64ToKoreanLanguage(n int64) []string {
+func Int64ToKoreanLanguage(n int64, isMonetary bool) []string {
 	if n == 0 {
 		return []string{zero}
 	}
@@ -147,7 +155,7 @@ func Int64ToKoreanLanguage(n int64) []string {
 	for i := 0; i < len(ret); i++ {
 		if len(ret[i]) > 0 {
 			if ret[i] != "-" {
-				sb := readNumberInKorean(ret[i], i == 1)
+				sb := readNumberInKorean(ret[i], i == 1, isMonetary)
 				sb.WriteString(unitsBig[i])
 				ret[i] = sb.String()
 			} else {

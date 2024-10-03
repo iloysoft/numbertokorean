@@ -8,7 +8,12 @@ import (
 )
 
 func printNumberKorean(n int64) {
-	fmt.Printf("%d -> %#v -> %#v\n", n, numbertokorean.Int64ToKoreanUnits(n), numbertokorean.Int64ToKoreanLanguage(n))
+	fmt.Printf("%d -> %#v -> %#v -> %#v\n",
+		n,
+		numbertokorean.Int64ToKoreanUnits(n),
+		numbertokorean.Int64ToKoreanLanguage(n, false),
+		numbertokorean.Int64ToKoreanLanguage(n, true),
+	)
 }
 
 func TestInt64ToKorean(t *testing.T) {
@@ -29,6 +34,7 @@ func TestInt64ToKorean(t *testing.T) {
 		100001,
 		110000,
 		110001,
+		113560,
 		120000,
 		120001,
 		200000,
@@ -37,6 +43,7 @@ func TestInt64ToKorean(t *testing.T) {
 		210001,
 		220000,
 		220001,
+		1765000,
 		100000000,
 		100000001,
 		100010000,
