@@ -9,12 +9,12 @@ import (
 
 // int64 : -922_3372_0368_5477_5808 to 922_3372_0368_5477_5807
 var (
-	minus         = "마이너스"
-	zero          = "영"
-	unitsBig      = []string{"", "만", "억", "조", "경"} // in reverse order
-	unitsSmall    = []string{"천", "백", "십"}
-	numbersFor012 = []string{"", "", "이", "삼", "사", "오", "육", "칠", "팔", "구"}
-	numbersFor3   = []string{"", "일", "이", "삼", "사", "오", "육", "칠", "팔", "구", "십"}
+	minus           = "마이너스"
+	zero            = "영"
+	unitsBig        = []string{"", "만", "억", "조", "경"} // in reverse order
+	unitsSmall      = []string{"천", "백", "십"}
+	numbersImplicit = []string{"", "", "이", "삼", "사", "오", "육", "칠", "팔", "구"}
+	numbersExplicit = []string{"", "일", "이", "삼", "사", "오", "육", "칠", "팔", "구", "십"}
 )
 
 const (
@@ -120,9 +120,9 @@ func readNumberInKorean(s string, isSecondPart bool, isMonetary bool) *strings.B
 	for i := 0; i < 3; i++ {
 		if nums[i] > 0 {
 			if isMonetary {
-				sb.WriteString(numbersFor3[nums[i]])
+				sb.WriteString(numbersExplicit[nums[i]])
 			} else {
-				sb.WriteString(numbersFor012[nums[i]])
+				sb.WriteString(numbersImplicit[nums[i]])
 			}
 			sb.WriteString(unitsSmall[i])
 		}
@@ -130,14 +130,14 @@ func readNumberInKorean(s string, isSecondPart bool, isMonetary bool) *strings.B
 
 	if nums[3] > 0 {
 		if isMonetary {
-			sb.WriteString(numbersFor3[nums[3]])
+			sb.WriteString(numbersExplicit[nums[3]])
 		} else {
 			if isSecondPart && nums[0] == 0 && nums[1] == 0 && nums[2] == 0 {
 				// NOTE
 				// special case....
-				sb.WriteString(numbersFor012[nums[3]])
+				sb.WriteString(numbersImplicit[nums[3]])
 			} else {
-				sb.WriteString(numbersFor3[nums[3]])
+				sb.WriteString(numbersExplicit[nums[3]])
 			}
 		}
 	}
