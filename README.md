@@ -21,7 +21,7 @@ There are 2 functions.
     - `Int64ToKoreanUnits(11000000010000, false)` will be `[]string{"11조", "", "1만", ""}`
     - `Int64ToKoreanUnits(11000000010000, true)` will be `[]string{"11조", "1만"}`
 
-- `Int64ToKoreanLanguage(n int64, bool isMonetary, removeEmptyString bool)`: convert `int64` into `[]string` in Sino-Korean system
+- `Int64ToKoreanLanguage(n int64, isMonetary bool, removeEmptyString bool)`: convert `int64` into `[]string` in Sino-Korean system
     - `Int64ToKoreanLanguage(-9223372036854775808, false, false)` will be `[]string{"마이너스", "구백이십이경", "삼천삼백칠십이조", "삼백육십팔억", "오천사백칠십칠만", "오천팔백팔"}`
     - `Int64ToKoreanLanguage(9223372036854775807, false, false)` will be `[]string{"구백이십이경", "삼천삼백칠십이조", "삼백육십팔억", "오천사백칠십칠만", "오천팔백칠"}`
     - `Int64ToKoreanLanguage(113560, false, false)` will be `[]string{"십일만", "삼천오백육십"}`
