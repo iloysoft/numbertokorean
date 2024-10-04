@@ -73,19 +73,34 @@ func parseUint64(n uint64) []string {
 	return ret
 }
 
-func Int64ToKoreanUnits(n int64) []string {
+func Int64ToKoreanUnits(n int64, removeEmptyString bool) []string {
 	if n == 0 {
 		return []string{"0"}
 	}
 
 	ret := parseInt64(n)
+	i2 := 0
 
 	for i := 0; i < len(ret); i++ {
-		if len(ret[i]) > 0 {
-			if ret[i] != "-" {
-				ret[i] += unitsBig[i]
-			}
+		if !removeEmptyString {
+			i2 = i
 		}
+
+		if ret[i] != "" {
+			if ret[i] != "-" {
+				ret[i2] = ret[i] + unitsBig[i]
+			} else {
+				ret[i2] = ret[i]
+			}
+			i2 += 1
+		}
+	}
+
+	if removeEmptyString {
+		for i := i2; i < len(ret); i++ {
+			ret[i] = ""
+		}
+		ret = ret[:i2]
 	}
 
 	slices.Reverse(ret)
@@ -145,23 +160,36 @@ func readNumberInKorean(s string, isSecondPart bool, isMonetary bool) *strings.B
 	return &sb
 }
 
-func Int64ToKoreanLanguage(n int64, isMonetary bool) []string {
+func Int64ToKoreanLanguage(n int64, isMonetary bool, removeEmptyString bool) []string {
 	if n == 0 {
 		return []string{zero}
 	}
 
 	ret := parseInt64(n)
+	i2 := 0
 
 	for i := 0; i < len(ret); i++ {
-		if len(ret[i]) > 0 {
+		if !removeEmptyString {
+			i2 = i
+		}
+
+		if ret[i] != "" {
 			if ret[i] != "-" {
 				sb := readNumberInKorean(ret[i], i == 1, isMonetary)
 				sb.WriteString(unitsBig[i])
-				ret[i] = sb.String()
+				ret[i2] = sb.String()
 			} else {
-				ret[i] = minus
+				ret[i2] = minus
 			}
+			i2 += 1
 		}
+	}
+
+	if removeEmptyString {
+		for i := i2; i < len(ret); i++ {
+			ret[i] = ""
+		}
+		ret = ret[:i2]
 	}
 
 	slices.Reverse(ret)

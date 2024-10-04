@@ -8,11 +8,14 @@ import (
 )
 
 func printNumberKorean(n int64) {
-	fmt.Printf("%d -> %#v -> %#v -> %#v\n",
+	fmt.Printf("%d\n, false)        -> %#v\n, true)         -> %#v\n, false, false) -> %#v\n, false, true)  -> %#v\n, true, false)  -> %#v\n, true, true)   -> %#v\n",
 		n,
-		numbertokorean.Int64ToKoreanUnits(n),
-		numbertokorean.Int64ToKoreanLanguage(n, false),
-		numbertokorean.Int64ToKoreanLanguage(n, true),
+		numbertokorean.Int64ToKoreanUnits(n, false),
+		numbertokorean.Int64ToKoreanUnits(n, true),
+		numbertokorean.Int64ToKoreanLanguage(n, false, false),
+		numbertokorean.Int64ToKoreanLanguage(n, false, true),
+		numbertokorean.Int64ToKoreanLanguage(n, true, false),
+		numbertokorean.Int64ToKoreanLanguage(n, true, true),
 	)
 }
 
@@ -62,6 +65,7 @@ func TestInt64ToKorean(t *testing.T) {
 		300020000,
 		300020001,
 		1234567898,
+		11000000010000,
 		4567890123456789,
 		73243786789276354,
 		1230000000000000000,
