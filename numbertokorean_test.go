@@ -163,6 +163,14 @@ func TestInt64ToKoreanUnits(t *testing.T) {
 			{false, []string{"1억", "1만", "1"}},
 			{true, []string{"1억", "1만", "1"}},
 		},
+		1234567898: {
+			{false, []string{"12억", "3456만", "7898"}},
+			{true, []string{"12억", "3456만", "7898"}},
+		},
+		73243786789276354: {
+			{false, []string{"7경", "3243조", "7867억", "8927만", "6354"}},
+			{true, []string{"7경", "3243조", "7867억", "8927만", "6354"}},
+		},
 		9223372036854775806: {
 			{false, []string{"922경", "3372조", "368억", "5477만", "5806"}},
 			{true, []string{"922경", "3372조", "368억", "5477만", "5806"}},
@@ -320,6 +328,24 @@ func TestInt64ToKoreanLanguage(t *testing.T) {
 			{true, false, []string{"일십일만", "삼천오백육십"}},
 			{true, true, []string{"일십일만", "삼천오백육십"}},
 		},
+		315678: {
+			{false, false, []string{"삼십일만", "오천육백칠십팔"}},
+			{false, true, []string{"삼십일만", "오천육백칠십팔"}},
+			{true, false, []string{"삼십일만", "오천육백칠십팔"}},
+			{true, true, []string{"삼십일만", "오천육백칠십팔"}},
+		},
+		1765000: {
+			{false, false, []string{"백칠십육만", "오천"}},
+			{false, true, []string{"백칠십육만", "오천"}},
+			{true, false, []string{"일백칠십육만", "오천"}},
+			{true, true, []string{"일백칠십육만", "오천"}},
+		},
+		2367295: {
+			{false, false, []string{"이백삼십육만", "칠천이백구십오"}},
+			{false, true, []string{"이백삼십육만", "칠천이백구십오"}},
+			{true, false, []string{"이백삼십육만", "칠천이백구십오"}},
+			{true, true, []string{"이백삼십육만", "칠천이백구십오"}},
+		},
 		100000000: {
 			{false, false, []string{"일억", "", ""}},
 			{false, true, []string{"일억"}},
@@ -332,11 +358,23 @@ func TestInt64ToKoreanLanguage(t *testing.T) {
 			{true, false, []string{"일억", "일만", ""}},
 			{true, true, []string{"일억", "일만"}},
 		},
+		1234567898: {
+			{false, false, []string{"십이억", "삼천사백오십육만", "칠천팔백구십팔"}},
+			{false, true, []string{"십이억", "삼천사백오십육만", "칠천팔백구십팔"}},
+			{true, false, []string{"일십이억", "삼천사백오십육만", "칠천팔백구십팔"}},
+			{true, true, []string{"일십이억", "삼천사백오십육만", "칠천팔백구십팔"}},
+		},
 		11000000010000: {
 			{false, false, []string{"십일조", "", "만", ""}},
 			{false, true, []string{"십일조", "만"}},
 			{true, false, []string{"일십일조", "", "일만", ""}},
 			{true, true, []string{"일십일조", "일만"}},
+		},
+		73243786789276354: {
+			{false, false, []string{"칠경", "삼천이백사십삼조", "칠천팔백육십칠억", "팔천구백이십칠만", "육천삼백오십사"}},
+			{false, true, []string{"칠경", "삼천이백사십삼조", "칠천팔백육십칠억", "팔천구백이십칠만", "육천삼백오십사"}},
+			{true, false, []string{"칠경", "삼천이백사십삼조", "칠천팔백육십칠억", "팔천구백이십칠만", "육천삼백오십사"}},
+			{true, true, []string{"칠경", "삼천이백사십삼조", "칠천팔백육십칠억", "팔천구백이십칠만", "육천삼백오십사"}},
 		},
 		9223372036854775806: {
 			{false, false, []string{"구백이십이경", "삼천삼백칠십이조", "삼백육십팔억", "오천사백칠십칠만", "오천팔백육"}},
