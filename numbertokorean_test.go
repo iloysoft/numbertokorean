@@ -103,6 +103,18 @@ func TestInt64ToKoreanUnits(t *testing.T) {
 			{false, []string{"-", "922경", "3372조", "368억", "5477만", "5807"}},
 			{true, []string{"-", "922경", "3372조", "368억", "5477만", "5807"}},
 		},
+		-100010001: {
+			{false, []string{"-", "1억", "1만", "1"}},
+			{true, []string{"-", "1억", "1만", "1"}},
+		},
+		-100010000: {
+			{false, []string{"-", "1억", "1만", ""}},
+			{true, []string{"-", "1억", "1만"}},
+		},
+		-100000001: {
+			{false, []string{"-", "1억", "", "1"}},
+			{true, []string{"-", "1억", "1"}},
+		},
 		-3: {
 			{false, []string{"-", "3"}},
 			{true, []string{"-", "3"}},
@@ -295,6 +307,12 @@ func TestInt64ToKoreanLanguage(t *testing.T) {
 			{false, true, []string{"백이"}},
 			{true, false, []string{"일백이"}},
 			{true, true, []string{"일백이"}},
+		},
+		1111: {
+			{false, false, []string{"천백십일"}},
+			{false, true, []string{"천백십일"}},
+			{true, false, []string{"일천일백일십일"}},
+			{true, true, []string{"일천일백일십일"}},
 		},
 		10000: {
 			{false, false, []string{"만", ""}},
