@@ -326,6 +326,12 @@ func TestInt64ToKoreanLanguage(t *testing.T) {
 			{true, false, []string{"일만", "일"}},
 			{true, true, []string{"일만", "일"}},
 		},
+		11111: {
+			{false, false, []string{"만", "천백십일"}},
+			{false, true, []string{"만", "천백십일"}},
+			{true, false, []string{"일만", "일천일백일십일"}},
+			{true, true, []string{"일만", "일천일백일십일"}},
+		},
 		20000: {
 			{false, false, []string{"이만", ""}},
 			{false, true, []string{"이만"}},
